@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './App.css'
 import './style.css'
-import Button from './Button'
 import firestore from './firebase'
 
 const servers = {
