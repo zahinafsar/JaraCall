@@ -8,6 +8,36 @@ const servers = {
     {
       urls: ['stun:stun1.l.google.com:19302', 'stun:stun2.l.google.com:19302'],
     },
+    {
+      "username": "1ssIU-Pry4bpkeoE9LEC00l4vJRAVH58vK9EUViwA1vqBdR2h4HtiwttpxN5BkKpAAAAAGEIxX16YWhpbmFmc2Fy",
+      "url": "turn:bn-turn1.xirsys.com:80?transport=udp",
+      "credential": "fe2578b0-f412-11eb-85b3-0242ac140004"
+    },
+    {
+      "username": "1ssIU-Pry4bpkeoE9LEC00l4vJRAVH58vK9EUViwA1vqBdR2h4HtiwttpxN5BkKpAAAAAGEIxX16YWhpbmFmc2Fy",
+      "url": "turn:bn-turn1.xirsys.com:3478?transport=udp",
+      "credential": "fe2578b0-f412-11eb-85b3-0242ac140004"
+    },
+    {
+      "username": "1ssIU-Pry4bpkeoE9LEC00l4vJRAVH58vK9EUViwA1vqBdR2h4HtiwttpxN5BkKpAAAAAGEIxX16YWhpbmFmc2Fy",
+      "url": "turn:bn-turn1.xirsys.com:80?transport=tcp",
+      "credential": "fe2578b0-f412-11eb-85b3-0242ac140004"
+    },
+    {
+      "username": "1ssIU-Pry4bpkeoE9LEC00l4vJRAVH58vK9EUViwA1vqBdR2h4HtiwttpxN5BkKpAAAAAGEIxX16YWhpbmFmc2Fy",
+      "url": "turn:bn-turn1.xirsys.com:3478?transport=tcp",
+      "credential": "fe2578b0-f412-11eb-85b3-0242ac140004"
+    },
+    {
+      "username": "1ssIU-Pry4bpkeoE9LEC00l4vJRAVH58vK9EUViwA1vqBdR2h4HtiwttpxN5BkKpAAAAAGEIxX16YWhpbmFmc2Fy",
+      "url": "turns:bn-turn1.xirsys.com:443?transport=tcp",
+      "credential": "fe2578b0-f412-11eb-85b3-0242ac140004"
+    },
+    {
+      "username": "1ssIU-Pry4bpkeoE9LEC00l4vJRAVH58vK9EUViwA1vqBdR2h4HtiwttpxN5BkKpAAAAAGEIxX16YWhpbmFmc2Fy",
+      "url": "turns:bn-turn1.xirsys.com:5349?transport=tcp",
+      "credential": "fe2578b0-f412-11eb-85b3-0242ac140004"
+    }
   ],
   iceCandidatePoolSize: 10,
 };
