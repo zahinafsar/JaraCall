@@ -2,58 +2,73 @@ import React from 'react'
 import './App.css'
 import './style.css'
 import firestore from './firebase'
+import axios from 'axios';
 
-const servers = {
-  iceServers: [
-    {
-      urls: ['stun:stun1.l.google.com:19302', 'stun:stun2.l.google.com:19302'],
-    },
-    {
-      "username": "1ssIU-Pry4bpkeoE9LEC00l4vJRAVH58vK9EUViwA1vqBdR2h4HtiwttpxN5BkKpAAAAAGEIxX16YWhpbmFmc2Fy",
-      "url": "turn:bn-turn1.xirsys.com:80?transport=udp",
-      "credential": "fe2578b0-f412-11eb-85b3-0242ac140004"
-    },
-    {
-      "username": "1ssIU-Pry4bpkeoE9LEC00l4vJRAVH58vK9EUViwA1vqBdR2h4HtiwttpxN5BkKpAAAAAGEIxX16YWhpbmFmc2Fy",
-      "url": "turn:bn-turn1.xirsys.com:3478?transport=udp",
-      "credential": "fe2578b0-f412-11eb-85b3-0242ac140004"
-    },
-    {
-      "username": "1ssIU-Pry4bpkeoE9LEC00l4vJRAVH58vK9EUViwA1vqBdR2h4HtiwttpxN5BkKpAAAAAGEIxX16YWhpbmFmc2Fy",
-      "url": "turn:bn-turn1.xirsys.com:80?transport=tcp",
-      "credential": "fe2578b0-f412-11eb-85b3-0242ac140004"
-    },
-    {
-      "username": "1ssIU-Pry4bpkeoE9LEC00l4vJRAVH58vK9EUViwA1vqBdR2h4HtiwttpxN5BkKpAAAAAGEIxX16YWhpbmFmc2Fy",
-      "url": "turn:bn-turn1.xirsys.com:3478?transport=tcp",
-      "credential": "fe2578b0-f412-11eb-85b3-0242ac140004"
-    },
-    {
-      "username": "1ssIU-Pry4bpkeoE9LEC00l4vJRAVH58vK9EUViwA1vqBdR2h4HtiwttpxN5BkKpAAAAAGEIxX16YWhpbmFmc2Fy",
-      "url": "turns:bn-turn1.xirsys.com:443?transport=tcp",
-      "credential": "fe2578b0-f412-11eb-85b3-0242ac140004"
-    },
-    {
-      "username": "1ssIU-Pry4bpkeoE9LEC00l4vJRAVH58vK9EUViwA1vqBdR2h4HtiwttpxN5BkKpAAAAAGEIxX16YWhpbmFmc2Fy",
-      "url": "turns:bn-turn1.xirsys.com:5349?transport=tcp",
-      "credential": "fe2578b0-f412-11eb-85b3-0242ac140004"
-    }
-  ],
-  iceCandidatePoolSize: 10,
-};
+// const servers = {
+//   iceServers: [
+//     {
+//       urls: ['stun:stun1.l.google.com:19302', 'stun:stun2.l.google.com:19302'],
+//     },
+//     { "url": "stun:bn-turn1.xirsys.com"},
+//     {
+//       "username": "1ssIU-Pry4bpkeoE9LEC00l4vJRAVH58vK9EUViwA1vqBdR2h4HtiwttpxN5BkKpAAAAAGEIxX16YWhpbmFmc2Fy",
+//       "url": "turn:bn-turn1.xirsys.com:80?transport=udp",
+//       "credential": "fe2578b0-f412-11eb-85b3-0242ac140004"
+//     },
+//     {
+//       "username": "1ssIU-Pry4bpkeoE9LEC00l4vJRAVH58vK9EUViwA1vqBdR2h4HtiwttpxN5BkKpAAAAAGEIxX16YWhpbmFmc2Fy",
+//       "url": "turn:bn-turn1.xirsys.com:3478?transport=udp",
+//       "credential": "fe2578b0-f412-11eb-85b3-0242ac140004"
+//     },
+//     {
+//       "username": "1ssIU-Pry4bpkeoE9LEC00l4vJRAVH58vK9EUViwA1vqBdR2h4HtiwttpxN5BkKpAAAAAGEIxX16YWhpbmFmc2Fy",
+//       "url": "turn:bn-turn1.xirsys.com:80?transport=tcp",
+//       "credential": "fe2578b0-f412-11eb-85b3-0242ac140004"
+//     },
+//     {
+//       "username": "1ssIU-Pry4bpkeoE9LEC00l4vJRAVH58vK9EUViwA1vqBdR2h4HtiwttpxN5BkKpAAAAAGEIxX16YWhpbmFmc2Fy",
+//       "url": "turn:bn-turn1.xirsys.com:3478?transport=tcp",
+//       "credential": "fe2578b0-f412-11eb-85b3-0242ac140004"
+//     },
+//     {
+//       "username": "1ssIU-Pry4bpkeoE9LEC00l4vJRAVH58vK9EUViwA1vqBdR2h4HtiwttpxN5BkKpAAAAAGEIxX16YWhpbmFmc2Fy",
+//       "url": "turns:bn-turn1.xirsys.com:443?transport=tcp",
+//       "credential": "fe2578b0-f412-11eb-85b3-0242ac140004"
+//     },
+//     {
+//       "username": "1ssIU-Pry4bpkeoE9LEC00l4vJRAVH58vK9EUViwA1vqBdR2h4HtiwttpxN5BkKpAAAAAGEIxX16YWhpbmFmc2Fy",
+//       "url": "turns:bn-turn1.xirsys.com:5349?transport=tcp",
+//       "credential": "fe2578b0-f412-11eb-85b3-0242ac140004"
+//     }
+//   ],
+//   iceCandidatePoolSize: 10,
+// };
 
-const pc = new RTCPeerConnection(servers);
-let localStream = null;
-let remoteStream = null;
 
 function App() {
   const webcamVideo = React.useRef()
   const remoteVideo = React.useRef()
   const ansInput = React.useRef()
   const callInput = React.useRef()
+  let localStream = null;
+  let remoteStream = null;
+  let pc;
   
-  React.useEffect(() => {
+  async function getStart() {
+    const data = await axios.put('https://global.xirsys.net/_turn/MyFirstApp', {},
+      {
+        headers: {
+          Authorization: 'Basic emFoaW5hZnNhcjplN2VkZWYyYS1mNDBiLTExZWItOWZlNC0wMjQyYWMxNTAwMDM='
+        }
+      });
+    const server = data.data.v
+    // console.log(server);
+    pc = new RTCPeerConnection(server);
     setupMedia()
+  }
+
+  React.useEffect(() => {
+    getStart()
   }, [])
 
   async function setupMedia() {
