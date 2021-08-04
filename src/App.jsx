@@ -95,7 +95,7 @@ function App() {
 
   async function createOffer() {
     // Reference Firestore collections for signaling
-    const callDoc = firestore.collection('calls').doc();
+    const callDoc = firestore.collection('calls').doc('123456789');
     const offerCandidates = callDoc.collection('offerCandidates');
     const answerCandidates = callDoc.collection('answerCandidates');
 
