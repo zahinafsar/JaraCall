@@ -48,12 +48,17 @@ import axios from 'axios';
 function App() {
   const webcamVideo = React.useRef()
   const remoteVideo = React.useRef()
-  const ansInput = React.useRef()
-  const callInput = React.useRef()
+  // const ansInput = React.useRef()
+  // const callInput = React.useRef()
+  const [loader, setLoader] = React.useState(false)
   let localStream = null;
   let remoteStream = null;
   let pc;
   
+  React.useEffect(() => {
+    getStart()
+  }, [])
+
   async function getStart() {
     const data = await axios.put('https://global.xirsys.net/_turn/MyFirstApp', {},
       {
@@ -64,15 +69,11 @@ function App() {
     const server = data.data.v
     // console.log(server);
     pc = new RTCPeerConnection(server);
+    // setLoader(false)
     setupMedia()
   }
 
-  React.useEffect(() => {
-    getStart()
-  }, [])
-
   async function setupMedia() {
-
     localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
     remoteStream = new MediaStream();
 
@@ -80,7 +81,7 @@ function App() {
     localStream.getTracks().forEach((track) => {
       pc.addTrack(track, localStream);
     });
-
+    
     // Pull tracks from remote stream, add to video stream
     pc.ontrack = (event) => {
       event.streams[0].getTracks().forEach((track) => {
@@ -95,11 +96,12 @@ function App() {
 
   async function createOffer() {
     // Reference Firestore collections for signaling
-    const callDoc = firestore.collection('calls').doc('123456789');
+    await firestore.collection('calls').doc('123456789').delete();
+    const callDoc = await firestore.collection('calls').doc('123456789');
     const offerCandidates = callDoc.collection('offerCandidates');
     const answerCandidates = callDoc.collection('answerCandidates');
 
-    callInput.current.value = callDoc.id;
+    // callInput.current.value = callDoc.id;
 
     // Get candidates for caller, save to db
     pc.onicecandidate = (event) => {
@@ -138,7 +140,8 @@ function App() {
   };
 
   async function answerCall() {
-    const callId = ansInput.current.value;
+    // const callId = ansInput.current.value;
+    const callId = '123456789';
     const callDoc = firestore.collection('calls').doc(callId);
     const answerCandidates = callDoc.collection('answerCandidates');
     const offerCandidates = callDoc.collection('offerCandidates');
@@ -175,6 +178,7 @@ function App() {
 
   return (
     <div>
+      {loader?<div id="loader"><h1>Jara</h1></div>:<></>}
       <div className="videos">
         <span>
           <video ref={webcamVideo} id="myWebCam" autoPlay playsInline></video>
@@ -183,12 +187,12 @@ function App() {
           <video ref={remoteVideo} autoPlay playsInline></video>
         </span>
       </div>
-      <div>
-        <button onClick={createOffer}>Get Code</button>
-        <input ref={callInput} />
+      <div id="buttons">
+        <button onClick={createOffer}>Call</button>
+        {/* <input ref={callInput} /> */}
+        {/* <input ref={ansInput} /> */}
+        <button onClick={answerCall}>Receive</button>
       </div>
-      <input ref={ansInput} />
-      <button onClick={answerCall}>Call</button>
     </div>
   )
 }

@@ -48,3 +48,38 @@ input {
   border-radius: 10px;
   border: 1px solid black;
 }
+#loader {
+  width: 100%;
+  z-index: 20;
+  height: 100vh;
+  background: black;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  font-family: monospace;
+  font-weight: bolder;
+  font-size: 2em;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+#buttons {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+h1 {
+  animation: anim linear infinite 0.5s;
+}
+
+@keyframes anim {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    background-color: 1;
+  }
+}
