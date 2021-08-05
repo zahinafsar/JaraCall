@@ -51,6 +51,7 @@ function App() {
   // const ansInput = React.useRef()
   // const callInput = React.useRef()
   const [loader, setLoader] = React.useState(false)
+  const [inCall, setInCall] = React.useState(false)
   let localStream = null;
   let remoteStream = null;
   let pc;
@@ -93,6 +94,9 @@ function App() {
     webcamVideo.current.muted = true;
     remoteVideo.current.srcObject = remoteStream;
   }
+  async function cutCall() {
+    location.reload()
+  }
 
   async function createOffer() {
     // Reference Firestore collections for signaling
@@ -134,6 +138,7 @@ function App() {
         if (change.type === 'added') {
           const candidate = new RTCIceCandidate(change.doc.data());
           pc.addIceCandidate(candidate);
+          setInCall(true)
         }
       });
     });
@@ -171,6 +176,7 @@ function App() {
         if (change.type === 'added') {
           let data = change.doc.data();
           pc.addIceCandidate(new RTCIceCandidate(data));
+          setInCall(true)
         }
       });
     });
@@ -187,12 +193,15 @@ function App() {
           <video ref={remoteVideo} autoPlay playsInline></video>
         </span>
       </div>
-      <div id="buttons">
+      {!inCall?<div id="buttons">
         <button onClick={createOffer}>Call</button>
         {/* <input ref={callInput} /> */}
         {/* <input ref={ansInput} /> */}
         <button onClick={answerCall}>Receive</button>
-      </div>
+      </div>:
+      <div id="buttons">
+        <button onClick={cutCall}>End Call</button>
+      </div>}
     </div>
   )
 }

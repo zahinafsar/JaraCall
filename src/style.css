@@ -41,6 +41,9 @@ button {
   cursor: pointer;
   font-size: 17px;
 }
+button:hover {
+  background-color: rgb(6, 31, 143);
+}
 input {
   padding: 12px;
   margin-bottom: 10px;
