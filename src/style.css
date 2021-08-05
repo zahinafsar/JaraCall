@@ -55,16 +55,16 @@ input {
   width: 100%;
   z-index: 20;
   height: 100vh;
-  background: black;
+  background: transparent;
   color: white;
   position: fixed;
   top: 0;
   left: 0;
   font-family: monospace;
   font-weight: bolder;
-  font-size: 2em;
+  font-size: 1.3em;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
 }
 #buttons {

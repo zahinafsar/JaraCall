@@ -145,6 +145,7 @@ function App() {
   };
 
   async function answerCall() {
+    setLoader(true)
     // const callId = ansInput.current.value;
     const callId = '123456789';
     const callDoc = firestore.collection('calls').doc(callId);
@@ -177,6 +178,7 @@ function App() {
           let data = change.doc.data();
           pc.addIceCandidate(new RTCIceCandidate(data));
           setInCall(true)
+          setLoader(false)
         }
       });
     });
@@ -184,7 +186,7 @@ function App() {
 
   return (
     <div>
-      {loader?<div id="loader"><h1>Jara</h1></div>:<></>}
+      {loader?<div id="loader"><p>Connecting.....</p></div>:<></>}
       <div className="videos">
         <span>
           <video ref={webcamVideo} id="myWebCam" autoPlay playsInline></video>
@@ -200,7 +202,7 @@ function App() {
         <button onClick={answerCall}>Receive</button>
       </div>:
       <div id="buttons">
-        <button onClick={cutCall}>End Call</button>
+          <button style={{backgroundColor: 'red'}} onClick={cutCall}>End Call</button>
       </div>}
     </div>
   )
