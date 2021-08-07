@@ -2,13 +2,14 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC2pE7A_rj6RCVdlVLc6ZmJUjf7vWzmFkQ",
-  authDomain: "jara-call.firebaseapp.com",
-  projectId: "jara-call",
-  storageBucket: "jara-call.appspot.com",
-  messagingSenderId: "286545812056",
-  appId: "1:286545812056:web:b29c631c2b2ce509e7882d",
-  measurementId: "G-NST1MK4HVY"
+    apiKey: "AIzaSyDEuA7U_PNzVq5p-_n2yk4kPjaz327rSrQ",
+    authDomain: "jara-computers.firebaseapp.com",
+    databaseURL: "https://jara-computers-default-rtdb.firebaseio.com",
+    projectId: "jara-computers",
+    storageBucket: "jara-computers.appspot.com",
+    messagingSenderId: "566352919108",
+    appId: "1:566352919108:web:f73fd4eda1c2b8ebba5a11",
+    measurementId: "G-3FPFJ0W5JN"
 };
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);

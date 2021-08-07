@@ -130,6 +130,7 @@ function App() {
         const answerDescription = new RTCSessionDescription(data.answer);
         pc.setRemoteDescription(answerDescription);
       }
+      setInCall(true)
     });
 
     // When answered, add candidate to peer connection
@@ -138,7 +139,6 @@ function App() {
         if (change.type === 'added') {
           const candidate = new RTCIceCandidate(change.doc.data());
           pc.addIceCandidate(candidate);
-          setInCall(true)
         }
       });
     });
